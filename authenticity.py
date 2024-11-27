@@ -51,10 +51,10 @@ def calculate_life_expectancy(pollution):
   print(i)
   for j in range(0, y):
    print(j)
-   life_expectancy[i, j] += (pollution[i, j] / 100)
-   if life_expectancy[i, j] < 105:
+   life_expectancy[i, j] -= (pollution[i, j] / 10)
+   if life_expectancy[i, j] > 105:
     life_expectancy[i, j] = 105
-   if life_expectancy[i, j] > 55:
+   if life_expectancy[i, j] < 55:
     life_expectancy[i, j] = 55
    #if pollution[i, j] == "i":
    # print("Industrial land use found at the grid reference: {} {}".format(i, j))
