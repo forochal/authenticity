@@ -42,7 +42,12 @@ def calculate_pollution(land_use):
    if land_use[i, j] == "i":
     print("Industrial land use found at the grid reference: {} {}".format(i, j))
     if pollution[i, j] < 100:
-     pollution[i, j] += 10 
+     for k in range(i - 1, i + 1):
+      for l in range(j - 1, j + 1):
+       try:
+        pollution[k, l] += 10
+       except Foobar:
+        print("We're polluting our neighbors!")
  
 def calculate_life_expectancy(pollution):
  x = len(pollution)
