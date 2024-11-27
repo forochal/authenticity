@@ -20,7 +20,7 @@ class Game:
   self.failed = False
   
 land_use = np.array([["h", "h", "h", "h"], ["h", "h", "h", "h"], ["h", "h", "h", "h"], ["h", "h", "h", "h"]])
-pollution = np.array([["REDACTED", "REDACTED", "REDACTED", "REDACTED"], ["REDACTED", "REDACTED", "REDACTED", "REDACTED"], ["REDACTED", "REDACTED", "REDACTED", "REDACTED"], ["REDACTED", "REDACTED", "REDACTED", "REDACTED"]])
+pollution = np.array([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
 life_expectancy = np.array([["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"], ["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"], ["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"], ["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"]])
 
 def calculate_pollution(land_use):
@@ -33,15 +33,15 @@ def calculate_pollution(land_use):
  
  #### the actual function
  
- #x = len(land_use)
- #y = len(land_use[0])
- #for i in range(0, x):
- # print(i)
- # for j in range(0, y):
- #  print(j)
- #  if land_use[i, j] == "i":
- #   print("Industrial land use found at the grid reference: {} {}".format(i, j))
- #   pollution[i, j] += 10 
+ x = len(land_use)
+ y = len(land_use[0])
+ for i in range(0, x):
+  print(i)
+  for j in range(0, y):
+   print(j)
+   if land_use[i, j] == "i":
+    print("Industrial land use found at the grid reference: {} {}".format(i, j))
+    pollution[i, j] += 10 
  
 def calculate_life_expectancy(pollution):
  print("The other dummy function for testing")
