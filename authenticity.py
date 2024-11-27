@@ -51,7 +51,7 @@ def calculate_life_expectancy(pollution):
   print(i)
   for j in range(0, y):
    print(j)
-   life_expectancy += (pollution[i, j] / 100)
+   life_expectancy[i, j] += (pollution[i, j] / 100)
    if life_expectancy[i, j] < 105:
     life_expectancy[i, j] = 105
    if life_expectancy[i, j] > 55:
