@@ -21,7 +21,7 @@ class Game:
   
 land_use = np.array([["h", "h", "h", "h"], ["h", "h", "h", "h"], ["h", "h", "h", "h"], ["h", "h", "h", "h"]])
 pollution = np.array([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
-life_expectancy = np.array([["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"], ["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"], ["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"], ["EXPUNGED", "EXPUNGED", "EXPUNGED", "EXPUNGED"]])
+life_expectancy = np.array([[70, 70, 70, 70], [70, 70, 70, 70], [70, 70, 70, 70], [70, 70, 70, 70]])
 
 def calculate_pollution(land_use):
 
@@ -41,10 +41,25 @@ def calculate_pollution(land_use):
    print(j)
    if land_use[i, j] == "i":
     print("Industrial land use found at the grid reference: {} {}".format(i, j))
-    pollution[i, j] += 10 
+    if pollution[i, j] < 100:
+     pollution[i, j] += 10 
  
 def calculate_life_expectancy(pollution):
- print("The other dummy function for testing")
+ x = len(pollution)
+ y = len(pollution[0])
+ for i in range(0, x):
+  print(i)
+  for j in range(0, y):
+   print(j)
+   life_expectancy += (pollution[i, j] / 100)
+   if life_expectancy[i, j] < 105:
+    life_expectancy[i, j] = 105
+   if life_expectancy[i, j] > 55:
+    life_expectancy[i, j] = 55
+   #if pollution[i, j] == "i":
+   # print("Industrial land use found at the grid reference: {} {}".format(i, j))
+   # if life_expectancy[i, j] < 105 and life_expectancy[i, j] > 55:
+   #  life_expectancy[i, j] += 10 
 
 #### try to read newspaper headlines from a file
 
@@ -145,6 +160,10 @@ def main(money, date, population, failed):
   #### calculate pollution
   
   calculate_pollution(land_use)
+  
+  #### calculate life expectancy
+  
+  calculate_life_expectancy(pollution)
    
   #### advance the date
   
