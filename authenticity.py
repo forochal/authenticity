@@ -36,30 +36,31 @@ def calculate_pollution(land_use):
  x = len(land_use)
  y = len(land_use[0])
  for i in range(0, x):
-  print(i)
   for j in range(0, y):
-   print(j)
    if land_use[i, j] == "i":
     print("Industrial land use found at the grid reference: {} {}".format(i, j))
     if pollution[i, j] < 100:
      for k in range(i - 1, i + 2):
       for l in range(j - 1, j + 2):
-       pollution[k, l] += 10
-       #except Foobar:
-       # print("We're polluting our neighbors!")
+       try:
+        pollution[k, l] += 10
+       except:
+        print("We're polluting our neighbors!")
  
-def calculate_life_expectancy(pollution):
+def calculate_life_expectancy(land_use, pollution):
  x = len(pollution)
  y = len(pollution[0])
  for i in range(0, x):
-  print(i)
   for j in range(0, y):
-   print(j)
-   life_expectancy[i, j] -= (pollution[i, j] / 10)
-   if life_expectancy[i, j] > 105:
-    life_expectancy[i, j] = 105
-   if life_expectancy[i, j] < 55:
-    life_expectancy[i, j] = 55
+   #life_expectancy[i, j] -= (pollution[i, j] / 10)
+   if land_use[i, j] == "p":
+    for k in range(i - 1, i + 2):
+     for l in range(j - 1, j + 2):
+      life_expectancy += 15
+   #if life_expectancy[i, j] > 105:
+   # life_expectancy[i, j] = 105
+   #if life_expectancy[i, j] < 55:
+   # life_expectancy[i, j] = 55
    #if pollution[i, j] == "i":
    # print("Industrial land use found at the grid reference: {} {}".format(i, j))
    # if life_expectancy[i, j] < 105 and life_expectancy[i, j] > 55:
@@ -167,7 +168,7 @@ def main(money, date, population, failed):
   
   #### calculate life expectancy
   
-  calculate_life_expectancy(pollution)
+  calculate_life_expectancy(land_use, pollution)
    
   #### advance the date
   
