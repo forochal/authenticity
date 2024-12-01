@@ -37,7 +37,7 @@ def calculate_pollution(land_use):
  y = len(land_use[0])
  for i in range(0, x):
   for j in range(0, y):
-   if land_use[i, j] == "i":
+   if land_use[i, j] == "i" or land_use[i, j] == "g":
     print("Industrial land use found at the grid reference: {} {}".format(i, j))
     if pollution[i, j] < 100:
      for k in range(i - 1, i + 2):
@@ -47,24 +47,27 @@ def calculate_pollution(land_use):
        except:
         print("We're polluting our neighbors!")
  
-def calculate_life_expectancy(land_use, pollution):
+def calculate_life_expectancy(land_use, pollution, life_expectancy):
  x = len(pollution)
  y = len(pollution[0])
  for i in range(0, x):
   for j in range(0, y):
-   #life_expectancy[i, j] -= (pollution[i, j] / 10)
+   life_expectancy[i, j] -= (pollution[i, j] / 100)
    if land_use[i, j] == "p":
     for k in range(i - 1, i + 2):
      for l in range(j - 1, j + 2):
-      life_expectancy += 15
-   #if life_expectancy[i, j] > 105:
-   # life_expectancy[i, j] = 105
-   #if life_expectancy[i, j] < 55:
-   # life_expectancy[i, j] = 55
+      try:
+       life_expectancy[k, l] += 1
+      except:
+       print("Notice: public seervices use suboptimal since the public seervices building is close to the city limits")
+   if life_expectancy[i, j] > 105:
+    life_expectancy[i, j] = 105
+   if life_expectancy[i, j] < 55:
+    life_expectancy[i, j] = 55
    #if pollution[i, j] == "i":
    # print("Industrial land use found at the grid reference: {} {}".format(i, j))
    # if life_expectancy[i, j] < 105 and life_expectancy[i, j] > 55:
-   #  life_expectancy[i, j] += 10 
+   #  life_expectancy[i, j] -= 2 
 
 #### try to read newspaper headlines from a file
 
@@ -168,7 +171,7 @@ def main(money, date, population, failed):
   
   #### calculate life expectancy
   
-  calculate_life_expectancy(land_use, pollution)
+  calculate_life_expectancy(land_use, pollution, life_expectancy)
    
   #### advance the date
   
@@ -176,18 +179,18 @@ def main(money, date, population, failed):
   
   #### taxes
   
-  if (population*10) >= g1.industrial or (population*10) >= g1.commercial:
+  if (population * 10) >= g1.industrial or (population * 10) >= g1.commercial:
    g1.money += population
    print("The citizens had enough money to pay personal income tax this month, thank goodness.")
   else:
    print("Something went against protocol. It seems like the citizens did not file the personal income tax this month.")
-  if (population*10) >= g1.industrial:
-   g1.money += (g1.industrial*2)
+  if (population * 10) >= g1.industrial:
+   g1.money += (g1.industrial * 2)
    print("The dirty industry (if any is present) had enough money to pay tax this month.")
   else:
    print("Something went against protocol. It seems like the dirty industry did not file tax this month.")
-  if (population*10) >= g1.commercial:
-   g1.money += (g1.commercial*3)
+  if (population * 10) >= g1.commercial:
+   g1.money += (g1.commercial * 3)
    print("The commerce (if any is present) had enough money to pay tax this month.")
   else:
    print("Something went against protocol. It seems like the commerce did not file tax this month.")
