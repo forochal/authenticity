@@ -5,18 +5,26 @@ import numpy as np
 #import cython
 import random
 #from dataclasses import dataclass
+
 #H STANDS FOR HEATHLANDS
+#U STANDS FOR RUINS
+#A STANDS FOR AN ABANDONED BUILDING
 
 print(random.__all__)
 
+random.seed(63)
+
 class Game:
- def __init__(self, money, date, population, industrial, commercial, seervices, electric_power, failed):
+ def __init__(self, money, date, population, industrial, commercial, seervices, residential_demand, industrial_demand, commercial_demand, electric_power, failed):
   self.money = 10000
   self.date = 1900.0
   self.population = 1
   self.industrial = 0
   self.commercial = 0
   self.seervices = 0
+  self.residential_demand = 0
+  self.industrial_demand = 0
+  self.commercial_demand = 0
   self.electric_power = False
   self.failed = False
   
@@ -70,6 +78,18 @@ def calculate_life_expectancy(land_use, pollution, life_expectancy):
    # if life_expectancy[i, j] < 105 and life_expectancy[i, j] > 55:
    #  life_expectancy[i, j] -= 2 
 
+def avg_pollution(pollution):
+ avg_pollution = 0
+ tiles = 0
+ x = len(pollution)
+ y = len(pollution[0])
+ for i in range(0, x):
+  for j in range(0, y):
+   avg_pollution += pollution[i, j]
+   tiles += 1
+ avg_pollution /= tiles
+ return avg_pollution
+
 #### try to read newspaper headlines from a file
 
 result = []
@@ -84,21 +104,35 @@ print(result)
 
 #### initializes a class instance of the game walkthrough
  
-g1 = Game(10000, 1900.0, 1, 0, 0, 0, False, False)
+g1 = Game(10000, 1900.0, 1, 0, 0, 0, 0, 0, 0, False, False)
 
 #### defines the main loop of the game
 
 def main(money, date, population, failed):
  if True:#g1.resource1 > 0 and g1.resource2 > 0:
+ 
+  #### calculate pollution
+  
+  calculate_pollution(land_use)
+  
+  #### calculate life expectancy
+  
+  calculate_life_expectancy(land_use, pollution, life_expectancy)
+  
+  #### calculate average pollution
+  
+  print(avg_pollution(pollution))
+ 
   print("---------------------------")
   print("Date: {} ".format(g1.date))
   print("Money: {} ".format(g1.money))
   print("Population: {} ".format(g1.population))
+  print("Demand: Residential {}, Commercial {}, Industrial {} ".format(g1.residential_demand, g1.industrial_demand, g1.commercial_demand))
   #print("Resource 1: {}/{} Resource 2: {}/{}".format(g1.resource1, g1.maxresource1, g1.resource2, g1.resource2))
   print("Zone residential (r), industrial (i), commercial (c), build a public seervices building (p), build a generator (g), do nothing (n)?")
   print("Specify coordinates, i.e. (r 0 0)")
   print("Land use map:")
-  print("H on the land use map stands for heathlands")
+  print("H on the land use map stands for heathlands, A stands for an abandoned building, U stands for ruins")
   print(land_use)
   print("Pollution map:")
   print(pollution)
@@ -166,14 +200,14 @@ def main(money, date, population, failed):
     g1.electric_power = True
   elif g1.electric_power == False:
    print("No citizen (excepting yourself) will move to this city without electric power! You need to build the generators first, Mayor.")
-   
-  #### calculate pollution
-  
-  calculate_pollution(land_use)
-  
-  #### calculate life expectancy
-  
-  calculate_life_expectancy(land_use, pollution, life_expectancy)
+  if avg_pollution(pollution) > 30.0:
+   x = len(land_use)
+   y = len(land_use[0])
+   for i in range(0, x):
+    for j in range(0, y):
+     if land_use[i, j] == "r" or land_use[i, j] == "c":
+      if random.getrandbits(1) == 1:
+       land_use[i, j] = "a"
    
   #### advance the date
   
