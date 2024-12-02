@@ -28,9 +28,9 @@ class Game:
   self.electric_power = False
   self.failed = False
   
-land_use = np.array([["h", "h", "h", "h"], ["h", "h", "h", "h"], ["h", "h", "h", "h"], ["h", "h", "h", "h"]])
-pollution = np.array([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
-life_expectancy = np.array([[70, 70, 70, 70], [70, 70, 70, 70], [70, 70, 70, 70], [70, 70, 70, 70]])
+land_use = np.array([["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"]])
+pollution = np.array([[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]])
+life_expectancy = np.array([[70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70], [70, 70, 70, 70, 70, 70, 70, 70]])
 
 def calculate_pollution(land_use):
 
@@ -143,7 +143,7 @@ def main(money, date, population, failed):
   print("Date: {} ".format(g1.date))
   print("Money: {} ".format(g1.money))
   print("Population: {} ".format(g1.population))
-  print("Demand: Residential {}, Commercial {}, Industrial {} ".format(int(g1.residential_demand), int(g1.industrial_demand), int(g1.commercial_demand)))
+  print("Demand: Residential {}, Commercial {}, Industrial {} ".format(int(g1.residential_demand), int(g1.commercial_demand), int(g1.industrial_demand)))
   #print("Resource 1: {}/{} Resource 2: {}/{}".format(g1.resource1, g1.maxresource1, g1.resource2, g1.resource2))
   print("Zone residential (r), industrial (i), commercial (c), build a public seervices building (p), build a generator (g), do nothing (n)?")
   print("Specify coordinates, i.e. (r 0 0)")
