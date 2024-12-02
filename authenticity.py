@@ -223,14 +223,39 @@ def main(money, date, population, failed):
     g1.electric_power = True
   elif g1.electric_power == False:
    print("No citizen (excepting yourself) will move to this city without electric power! You need to build the generators first, Mayor.")
-  if avg_pollution(pollution) > 30.0:
+   
+  #### legacy urban decay code
+   
+  #if avg_pollution(pollution) > 30.0:
+   #x = len(land_use)
+   #y = len(land_use[0])
+   #for i in range(0, x):
+    #for j in range(0, y):
+     #if land_use[i, j] == "r" or land_use[i, j] == "c":
+      #if random.getrandbits(1) == 1:
+       #land_use[i, j] = "a"
+       
+  #### the actual urban decay code
+  
+  if g1.residential_demand < 20.0:
    x = len(land_use)
    y = len(land_use[0])
    for i in range(0, x):
     for j in range(0, y):
-     if land_use[i, j] == "r" or land_use[i, j] == "c":
+     if land_use[i, j] == "r":
       if random.getrandbits(1) == 1:
        land_use[i, j] = "a"
+       population -= 10
+       
+  if g1.commercial_demand < 20.0:
+   x = len(land_use)
+   y = len(land_use[0])
+   for i in range(0, x):
+    for j in range(0, y):
+     if land_use[i, j] == "c":
+      if random.getrandbits(1) == 1:
+       land_use[i, j] = "a"
+       commercial -= 10
    
   #### advance the date
   
