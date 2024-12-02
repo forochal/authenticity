@@ -7,8 +7,8 @@ import random
 #from dataclasses import dataclass
 
 #H STANDS FOR HEATHLANDS
-#U STANDS FOR RUINS
 #A STANDS FOR AN ABANDONED BUILDING
+#U STANDS FOR RUINS
 
 print(random.__all__)
 
@@ -128,6 +128,8 @@ def main(money, date, population, failed):
   g1.commercial_demand -= (average_pollution / 3)
   g1.industrial_demand = 50
   
+  g1.residential_demand += (g1.seervices * 30)
+  
   if g1.residential_demand > 100:
    g1.residential_demand = 100
   if g1.residential_demand < 0:
@@ -141,7 +143,7 @@ def main(money, date, population, failed):
   print("Date: {} ".format(g1.date))
   print("Money: {} ".format(g1.money))
   print("Population: {} ".format(g1.population))
-  print("Demand: Residential {}, Commercial {}, Industrial {} ".format(g1.residential_demand, g1.industrial_demand, g1.commercial_demand))
+  print("Demand: Residential {}, Commercial {}, Industrial {} ".format(int(g1.residential_demand), int(g1.industrial_demand), int(g1.commercial_demand)))
   #print("Resource 1: {}/{} Resource 2: {}/{}".format(g1.resource1, g1.maxresource1, g1.resource2, g1.resource2))
   print("Zone residential (r), industrial (i), commercial (c), build a public seervices building (p), build a generator (g), do nothing (n)?")
   print("Specify coordinates, i.e. (r 0 0)")
@@ -156,7 +158,10 @@ def main(money, date, population, failed):
   
   #### reads the user input
   
-  userinput = input("What will you do this month, Mayor?")
+  try:
+   userinput = input("What will you do this month, Mayor?")
+  except:
+   print("Invalid input provided")
   print(userinput)
   ironedoutuserinput = userinput.split()
   print(ironedoutuserinput)
@@ -181,10 +186,14 @@ def main(money, date, population, failed):
  #  g1.resource2 = 5
  #  g1.maxresource2 = 10
  #  g1.failed = False
-  if ironedoutuserinput[0] == "g":
-   land_use[int(ironedoutuserinput[1]), int(ironedoutuserinput[2])] = "g"
-   g1.money -= 1500
-   g1.electric_power = True
+  try:
+   if ironedoutuserinput[0] == "g":
+    land_use[int(ironedoutuserinput[1]), int(ironedoutuserinput[2])] = "g"
+    g1.money -= 1500
+    g1.electric_power = True
+  except:
+   print("Invalid input")
+   ironedoutuserinput = "n"
   if ironedoutuserinput[0] == "n":
    print("")
   elif ironedoutuserinput[0] == "q":
