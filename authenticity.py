@@ -10,12 +10,13 @@ import random
 print(random.__all__)
 
 class Game:
- def __init__(self, money, date, population, industrial, commercial, electric_power, failed):
+ def __init__(self, money, date, population, industrial, commercial, seervices, electric_power, failed):
   self.money = 10000
   self.date = 1900.0
   self.population = 1
   self.industrial = 0
   self.commercial = 0
+  self.seervices = 0
   self.electric_power = False
   self.failed = False
   
@@ -83,7 +84,7 @@ print(result)
 
 #### initializes a class instance of the game walkthrough
  
-g1 = Game(10000, 1900.0, 1, 0, 0, False, False)
+g1 = Game(10000, 1900.0, 1, 0, 0, 0, False, False)
 
 #### defines the main loop of the game
 
@@ -157,6 +158,7 @@ def main(money, date, population, failed):
    if ironedoutuserinput[0] == "p":
     land_use[int(ironedoutuserinput[1]), int(ironedoutuserinput[2])] = "p"
     print("The emergency seervices pledge to protect the citizens. We'll see about that.")
+    g1.seervices += 1
     g1.money -= 1000
    if ironedoutuserinput[0] == "g":
     land_use[int(ironedoutuserinput[1]), int(ironedoutuserinput[2])] = "g"
@@ -176,6 +178,10 @@ def main(money, date, population, failed):
   #### advance the date
   
   g1.date += 0.1
+  
+  #### public seervices spending
+  
+  g1.money -= (g1.seervices * 3)
   
   #### taxes
   
