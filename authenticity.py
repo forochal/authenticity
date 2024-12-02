@@ -22,9 +22,9 @@ class Game:
   self.industrial = 0
   self.commercial = 0
   self.seervices = 0
-  self.residential_demand = 0
-  self.industrial_demand = 0
-  self.commercial_demand = 0
+  self.residential_demand = 50
+  self.industrial_demand = 50
+  self.commercial_demand = 50
   self.electric_power = False
   self.failed = False
   
@@ -104,7 +104,7 @@ print(result)
 
 #### initializes a class instance of the game walkthrough
  
-g1 = Game(10000, 1900.0, 1, 0, 0, 0, 0, 0, 0, False, False)
+g1 = Game(10000, 1900.0, 1, 0, 0, 0, 50, 50, 50, False, False)
 
 #### defines the main loop of the game
 
@@ -121,7 +121,21 @@ def main(money, date, population, failed):
   
   #### calculate average pollution
   
-  print(avg_pollution(pollution))
+  average_pollution = avg_pollution(pollution)
+  print(average_pollution)
+  
+  g1.residential_demand -= (average_pollution / 3)
+  g1.commercial_demand -= (average_pollution / 3)
+  g1.industrial_demand = 50
+  
+  if g1.residential_demand > 100:
+   g1.residential_demand = 100
+  if g1.residential_demand < 0:
+   g1.residential_demand = 0
+  if g1.commercial_demand > 100:
+   g1.commercial_demand = 100
+  if g1.commercial_demand < 0:
+   g1.commercial_demand = 0
  
   print("---------------------------")
   print("Date: {} ".format(g1.date))
