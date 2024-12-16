@@ -5,15 +5,40 @@ import numpy as np
 #import cython
 import random
 #from dataclasses import dataclass
+#import arcade
 
 #H STANDS FOR HEATHLANDS
 #A STANDS FOR AN ABANDONED BUILDING
 #U STANDS FOR RUINS
 
+#SCREEN_WIDTH = 800
+#SCREEN_HEIGHT = 600
+#SCREEN_TITLE = "Close this window with the X button"
+#RADIUS = 150
+#SCALING = 1
+
 print(random.__all__)
 
 random.seed(63)
 
+#poor_residential = arcade.load_texture("images/lower_class_residential.png")
+#medium_residential = arcade.load_texture("images/middle_class_residential.png")
+#rich_residential = arcade.load_texture("images/luxury_residential.png")
+
+#poor_commercial = arcade.load_texture("images/diner_commercial.png")
+#medium_commercial = arcade.load_texture("images/googie_restaurant_commercial.png")
+#rich_commercial = arcade.load_texture("images/historic_office_commercial.png")
+
+#public_seervices = arcade.load_texture("images/hostpital.png")
+#generators = arcade.load_texture("images/generators.png")
+#school = arcade.load_texture("images/school.png")
+
+#abandoned_building = arcade.load_texture("images/abandoned_building.png")
+
+#heathlands = arcade.load_texture("images/vegetation.png")
+#hills = arcade.load_texture("images/hills.png")
+#water = arcade.load_texture("images/water.png")
+ 
 class Game:
  def __init__(self, money, date, population, industrial, commercial, seervices, residential_demand, industrial_demand, commercial_demand, electric_power, failed):
   self.money = 10000
@@ -146,7 +171,7 @@ def main(money, date, population, failed):
   print("Demand: Residential {}, Commercial {}, Industrial {} ".format(int(g1.residential_demand), int(g1.commercial_demand), int(g1.industrial_demand)))
   #print("Resource 1: {}/{} Resource 2: {}/{}".format(g1.resource1, g1.maxresource1, g1.resource2, g1.resource2))
   print("Zone residential (r), industrial (i), commercial (c), build a public seervices building (p), build a generator (g), do nothing (n)?")
-  print("Specify coordinates, i.e. (r 0 0)")
+  print("Specify coordinates, i.e. (r 0 0) (numbers increment from the top left corner towards the bottom right corner)")
   print("Land use map:")
   print("H on the land use map stands for heathlands, A stands for an abandoned building, U stands for ruins")
   print(land_use)
@@ -255,7 +280,7 @@ def main(money, date, population, failed):
      if land_use[i, j] == "c":
       if random.getrandbits(1) == 1:
        land_use[i, j] = "a"
-       commercial -= 10
+       g1.commercial -= 10
    
   #### advance the date
   
@@ -291,7 +316,22 @@ def main(money, date, population, failed):
    #print("The Angoba newspaper says: {} ".format(result[int(random.randrange(0, 4))]))
   # print("The Angoba newspaper says: {} ".format(random.choice(result)))
    
+  #try:
+   #arcade.draw_circle_filled(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, RADIUS, arcade.color.BLUE)
+   #arcade.finish_render()
+   #arcade.run()
+  #finally:
+   #print("Render finished")
   #### end main game loop definition
-      
+
+
+#### opens the arcade window
+
+#arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+
 while True:
+ #arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+ #arcade.set_background_color(arcade.color.WHITE)
+ #arcade.start_render()
+ #arcade.draw_texture_rectangle(150, 150, 300, 300, poor_residential)
  main(g1.money, g1.date, g1.population, g1.failed)
