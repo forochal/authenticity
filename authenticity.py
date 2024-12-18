@@ -148,7 +148,7 @@ def main(money, date, population, true_population, failed):
   #### calculate average pollution
   
   average_pollution = avg_pollution(pollution)
-  print(average_pollution)
+  print("Average pollution: {} ".format(average_pollution))
   
   #### rci demand reduced by pollution
   
@@ -166,7 +166,9 @@ def main(money, date, population, true_population, failed):
   g1.residential_demand += g1.commercial
   g1.residential_demand += g1.industrial
   g1.commercial_demand += g1.industrial
-  g1.industrial_demand += (g1.true_population/10)
+  g1.industrial_demand += (g1.population/5)#(g1.true_population/10)
+  
+  #### check if demand exceeds 100 or is below 0 and change the value to remain within 0-100
   
   if g1.residential_demand > 100:
    g1.residential_demand = 100
