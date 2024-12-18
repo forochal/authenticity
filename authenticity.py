@@ -150,12 +150,23 @@ def main(money, date, population, true_population, failed):
   average_pollution = avg_pollution(pollution)
   print(average_pollution)
   
-  g1.residential_demand -= (average_pollution / 30)
-  g1.commercial_demand -= (average_pollution / 30)
-  g1.industrial_demand = 50
+  #### rci demand reduced by pollution
+  
+  g1.residential_demand -= (average_pollution / 6)
+  g1.commercial_demand -= (average_pollution / 2)
+  g1.industrial_demand -= (average_pollution / 6)
+  
+  #### rci demand increased by public seervices
   
   g1.residential_demand += (g1.seervices * 3)
   g1.commercial_demand += (g1.seervices * 1)
+  
+  #### rci demand influenced by rci demand
+  
+  g1.residential_demand += g1.commercial
+  g1.residential_demand += g1.industrial
+  g1.commercial_demand += g1.industrial
+  g1.industrial_demand += (g1.true_population/10)
   
   if g1.residential_demand > 100:
    g1.residential_demand = 100
@@ -165,6 +176,10 @@ def main(money, date, population, true_population, failed):
    g1.commercial_demand = 100
   if g1.commercial_demand < 0:
    g1.commercial_demand = 0
+   if g1.industrial_demand > 100:
+   g1.industrial_demand = 100
+  if g1.industrial_demand < 0:
+   g1.industrial_demand = 0
  
   print("---------------------------")
   print("Date: {} ".format(g1.date))
@@ -300,6 +315,7 @@ def main(money, date, population, true_population, failed):
    for j in range(0, y):
     if land_use[i, j] == "r":# or land_use[i, j] == "g":
      true_population += 10
+  print("True population: {} ".format(true_population))
   
   #### taxes
   
