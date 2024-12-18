@@ -153,8 +153,8 @@ def main(money, date, population, true_population, failed):
   #### rci demand reduced by pollution
   
   g1.residential_demand -= (average_pollution / 6)
-  g1.commercial_demand -= (average_pollution / 2)
-  g1.industrial_demand -= (average_pollution / 6)
+  g1.commercial_demand -= (average_pollution / 3)
+  g1.industrial_demand -= (average_pollution / 5)
   
   #### rci demand increased by public seervices
   
@@ -165,8 +165,8 @@ def main(money, date, population, true_population, failed):
   
   g1.residential_demand += g1.commercial
   g1.residential_demand += g1.industrial
-  g1.commercial_demand += g1.industrial
-  g1.industrial_demand += (g1.population/5)#(g1.true_population/10)
+  g1.commercial_demand += (g1.population/6)#(g1.true_population/10)#g1.industrial
+  g1.industrial_demand += g1.commercial
   
   #### check if demand exceeds 100 or is below 0 and change the value to remain within 0-100
   
