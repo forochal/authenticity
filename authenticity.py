@@ -176,7 +176,7 @@ def main(money, date, population, true_population, failed):
    g1.commercial_demand = 100
   if g1.commercial_demand < 0:
    g1.commercial_demand = 0
-   if g1.industrial_demand > 100:
+  if g1.industrial_demand > 100:
    g1.industrial_demand = 100
   if g1.industrial_demand < 0:
    g1.industrial_demand = 0
