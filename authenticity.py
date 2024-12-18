@@ -152,7 +152,7 @@ def main(money, date, population, true_population, failed):
   
   #### rci demand reduced by pollution
   
-  g1.residential_demand -= (average_pollution / 6)
+  g1.residential_demand -= (average_pollution * 4)
   g1.commercial_demand -= (average_pollution / 3)
   g1.industrial_demand -= (average_pollution / 5)
   
