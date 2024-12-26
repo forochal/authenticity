@@ -185,10 +185,10 @@ def main(money, date, population, true_population, failed):
    g1.industrial_demand = 0
  
   print("---------------------------")
-  print("Date: {} ".format(g1.date))
-  print("Money: {} ".format(g1.money))
-  print("Population: {} ".format(g1.population))
-  print("Demand: Residential {}, Commercial {}, Industrial {} ".format(int(g1.residential_demand), int(g1.commercial_demand), int(g1.industrial_demand)))
+  print("Date: {}, Money: {}, Population: {}, Demand: Residential {}, Commercial {}, Industrial {} ".format(g1.date, g1.money,g1.population, int(g1.residential_demand), int(g1.commercial_demand), int(g1.industrial_demand)))
+  #print("Money: {} ".format(g1.money))
+  #print("Population: {} ".format(g1.population))
+  #print("Demand: Residential {}, Commercial {}, Industrial {} ".format(int(g1.residential_demand), int(g1.commercial_demand), int(g1.industrial_demand)))
   #print("Resource 1: {}/{} Resource 2: {}/{}".format(g1.resource1, g1.maxresource1, g1.resource2, g1.resource2))
   print("Zone residential (r), industrial (i), commercial (c), build a public seervices building (p), build a generator (g), do nothing (n)?")
   print("Specify coordinates, i.e. (r 0 0) (numbers increment from the top left corner towards the bottom right corner)")
@@ -342,8 +342,9 @@ def main(money, date, population, true_population, failed):
   
   if True:#population >= 10:
    #print("The Angoba newspaper says: {} ".format(random.randrange(0, 4, 1)))
-   print("The Angoba newspaper says: {} ".format(headlines[int(random.randrange(0, 2))]))
+   #print('\033[95m', "The Angoba newspaper says: {} ".format(headlines[int(random.randrange(0, 2))]))
    #print("The Angoba newspaper says: {} ".format(result[int(random.randrange(0, 4))]))
+   print("The Angoba newspaper says: {} ".format(headlines[int(random.randrange(0, 2))]))
   # print("The Angoba newspaper says: {} ".format(random.choice(result)))
    
   #try:
