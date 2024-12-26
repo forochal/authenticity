@@ -210,6 +210,8 @@ def main(money, date, population, true_population, failed):
    print("Invalid input provided")
   print(userinput)
   ironedoutuserinput = userinput.split()
+  if len(ironedoutuserinput) != 3:
+   raise ValueError('Too little or too many coordinates provided, or multiple commands issued at once.')
   print(ironedoutuserinput)
   try:
    print(ironedoutuserinput[1])
