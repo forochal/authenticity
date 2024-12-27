@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "authenticity"
+version = "cl32"
+
+dependencies = [
+  "numpy",
+  "random",
+]
+requires-python = ">=3.8"
+
+authors = [
+  {name = "forochal", email = "forochal@proton.me"}
+]
+maintainers = [
+  {name = "forochal", email = "forochal@proton.me"}
+]
+description = "A simple city builder in the command line"
+
+readme = "README.md"
+
+license = {file = "LICENSE.md"}
+
+keywords = ["city", "builder"]
+
+classifiers = [
+  "Development Status :: 1 - Pre-alpha",
+  "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://github.com/forochal/authenticity"
+"Bug Tracker" = "https://github.com/forochal/authenticity/issues"
