@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "authenticity"
-version = "cl36"
+version = "cl37"
 
 dependencies = [
   "numpy",

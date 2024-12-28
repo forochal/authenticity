@@ -377,4 +377,5 @@ while True:
  #arcade.set_background_color(arcade.color.WHITE)
  #arcade.start_render()
  #arcade.draw_texture_rectangle(150, 150, 300, 300, poor_residential)
+ print("Notice: When a demand is very low, citizens, businesses and industries may abandon some of the buildings in the respective zone")
  main(g1.money, g1.date, g1.population, g1.true_population, g1.failed)
