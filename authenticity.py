@@ -40,7 +40,7 @@ random.seed(63)
 #water = arcade.load_texture("images/water.png")
  
 class Game:
- def __init__(self, money, date, population, true_population, industrial, commercial, seervices, residential_demand, industrial_demand, commercial_demand, electric_power, failed):
+ def __init__(self, money, date, population, true_population, industrial, commercial, seervices, residential_demand, industrial_demand, commercial_demand, residential_tax, industrial_tax, commercial_tax, electric_power, failed):
   self.money = 10000
   self.date = 1900.0
   self.population = 1
@@ -51,6 +51,9 @@ class Game:
   self.residential_demand = 50
   self.industrial_demand = 50
   self.commercial_demand = 50
+  self.residential_tax = 11
+  self.industrial_tax = 11
+  self.commercial_tax = 11
   self.electric_power = False
   self.failed = False
   
@@ -130,7 +133,7 @@ print(result)
 
 #### initializes a class instance of the game walkthrough
  
-g1 = Game(10000, 1900.0, 1, 1, 0, 0, 0, 50, 50, 50, False, False)
+g1 = Game(10000, 1900.0, 1, 1, 0, 0, 0, 50, 50, 50, 11, 11, 11, False, False)
 
 #### defines the main loop of the game
 
@@ -149,6 +152,12 @@ def main(money, date, population, true_population, failed):
   
   average_pollution = avg_pollution(pollution)
   print("Average pollution: {} ".format(average_pollution))
+  
+  #### rci demand influenced by taxes
+  
+  g1.residential_demand -= (int(g1.residential_tax) - 11)
+  g1.commercial_demand -= (int(g1.commercial_tax) - 11)
+  g1.industrial_demand -= (int(g1.industrial_tax) - 11)
   
   #### rci demand reduced by pollution
   
@@ -193,6 +202,7 @@ def main(money, date, population, true_population, failed):
   #print("Resource 1: {}/{} Resource 2: {}/{}".format(g1.resource1, g1.maxresource1, g1.resource2, g1.resource2))
   print("Zone " + '\x1b[0;32;40m',  "residential (r), " + '\x1b[0;33;40m', "industrial (i), " + '\x1b[0;34;40m', "commercial (c), " + '\x1b[0;37;40m', "build a public seervices building (p), build a generator (g), do nothing (n)?" + '\x1b[0m')
   print("Specify coordinates, i.e. (r 0 0) (numbers increment from the top left corner towards the bottom right corner)")
+  print('\x1b[0;37;40m', "Current taxes: " + '\x1b[0;32;40m',  "residential (r) {}, ".format(int(g1.residential_tax)) + '\x1b[0;33;40m', "industrial (i) {}, ".format(int(g1.industrial_tax)) + '\x1b[0;34;40m', "commercial (c) {}, ".format(int(g1.commercial_tax)) + '\x1b[0;37;40m', "change taxes? (i.e. t r 11)" + '\x1b[0m')
   print("Land use map:")
   print("H on the land use map stands for heathlands, A stands for an abandoned building, U stands for ruins")
   print(land_use)
@@ -210,8 +220,9 @@ def main(money, date, population, true_population, failed):
    print("Invalid input provided")
   print(userinput)
   ironedoutuserinput = userinput.split()
-  if len(ironedoutuserinput) != 3:
-   raise ValueError('Too little or too many coordinates provided, or multiple commands issued at once.')
+  if len(ironedoutuserinput) != 3 and ironedoutuserinput[0] != 'n' and ironedoutuserinput[0] != 'q':
+   ironedoutuserinput[0] = 'n'
+   print("Invalid input provided. Doing nothing.")
   print(ironedoutuserinput)
   try:
    print(ironedoutuserinput[1])
@@ -239,6 +250,13 @@ def main(money, date, population, true_population, failed):
     land_use[int(ironedoutuserinput[1]), int(ironedoutuserinput[2])] = "g"
     g1.money -= 1500
     g1.electric_power = True
+   if ironedoutuserinput[0] == "t":
+    if ironedoutuserinput[1] == "r":
+     g1.residential_tax = ironedoutuserinput[2]
+    elif ironedoutuserinput[1] == "c":
+     g1.commercial_tax = ironedoutuserinput[2]
+    elif ironedoutuserinput[1] == "i":
+     g1.industrial_tax = ironedoutuserinput[2]
   except:
    print("Invalid input")
    ironedoutuserinput = "n"
@@ -326,20 +344,11 @@ def main(money, date, population, true_population, failed):
   #### taxes
   
   if (true_population * 10) >= g1.industrial or (true_population * 10) >= g1.commercial:
-   g1.money += population
-   print("The citizens had enough money to pay personal income tax this month, thank goodness.")
-  else:
-   print("Something went against protocol. It seems like the citizens did not file the personal income tax this month.")
+   g1.money += int(population * (int(g1.residential_tax) / 11))
   if (true_population * 10) >= g1.industrial:
-   g1.money += (g1.industrial * 2)
-   print("The dirty industry (if any is present) had enough money to pay tax this month.")
-  else:
-   print("Something went against protocol. It seems like the dirty industry did not file tax this month.")
+   g1.money += int(population * (int(g1.industrial_tax) / 5))
   if (true_population * 10) >= g1.commercial:
-   g1.money += (g1.commercial * 3)
-   print("The commerce (if any is present) had enough money to pay tax this month.")
-  else:
-   print("Something went against protocol. It seems like the commerce did not file tax this month.")
+   g1.money += int(population * (int(g1.commercial_tax) / 3))
   
   #### news ticker
   
