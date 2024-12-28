@@ -152,6 +152,9 @@ def main(money, date, population, true_population, failed):
    g1.industrial_demand = 0
  
   print("---------------------------")
+  if g1.money <= 0:
+   print("Game over")
+   g1.failed = True
   print('\x1b[0;37;40m', "Date: {}, Money: {}, Population: {}, Demand: ".format(g1.date, g1.money,g1.population) + '\x1b[0;32;40m', "Residential {}, ".format(int(g1.residential_demand)) + '\x1b[0;34;40m', "Commercial {}, ".format(int(g1.commercial_demand)) + '\x1b[0;33;40m', "Industrial {} ".format(int(g1.industrial_demand)) + '\x1b[0m')
   print("Zone " + '\x1b[0;32;40m',  "residential (r), " + '\x1b[0;33;40m', "industrial (i), " + '\x1b[0;34;40m', "commercial (c), " + '\x1b[0;37;40m', "build a public seervices building (p), build a generator (g), do nothing (n)?" + '\x1b[0m')
   print("Specify coordinates, i.e. (r 0 0) (numbers increment from the top left corner towards the bottom right corner)")
@@ -182,22 +185,9 @@ def main(money, date, population, true_population, failed):
   except:
    print("No coordinates specified this month")
   print("===========================")
- #elif g1.resource1 <= 0:
- # print("Game over due to lack of resource 1")
- # g1.failed = True
- #elif g1.resource2 <= 0:
- # print("Game over due to lack of resource 2")
- # g1.failed = True
- #if g1.failed == True:
- # print("Restart game (r), quit game (q)?")
- # userinput = input("What do you do?")
- # print(userinput)
- # if userinput == "r":
-   #g1.resource1 = 5
-   #g1.maxresource1 = 10
- #  g1.resource2 = 5
- #  g1.maxresource2 = 10
- #  g1.failed = False
+  if g1.money <= 0:
+   print("Game over due to lack of money")
+   g1.failed = True
   try:
    if ironedoutuserinput[0] == "g":
     land_use[int(ironedoutuserinput[1]), int(ironedoutuserinput[2])] = "g"
@@ -308,6 +298,10 @@ def main(money, date, population, true_population, failed):
   if True:
    print("The Angoba newspaper says: {} ".format(headlines[int(random.randrange(0, 2))]))
 
-while True:
+while g1.failed == False:
  print("Notice: When a demand is very low, citizens, businesses and industries may abandon some of the buildings in the respective zone")
  main(g1.money, g1.date, g1.population, g1.true_population, g1.failed)
+if g1.failed == True:
+ userinput = input("Press any key and then Enter to quit the game")
+ if userinput != None:
+  sys.exit()
