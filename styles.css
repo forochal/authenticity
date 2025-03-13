@@ -1,0 +1,16 @@
+body {
+  background-color: papayawhip;
+}
+h1 {
+  color: chocolate;
+  font-family: verdana;
+  font-size: 300%;
+}
+p {
+  color: coral;
+  font-family: courier;
+  font-size: 160%;
+  border: 2px solid salmon;
+  padding: 30px;
+  margin: 50px;
+}
