@@ -4,6 +4,8 @@
 
 const http = require('http');
 const fs = require("fs");
+const { Buffer } = require('node:buffer');
+
 const homePage = fs.readFileSync('./index.html');
 const homeStyles = fs.readFileSync('./styles.css');
 //const homeJS = fs.readFileSync('./authenticity.js'); //this doesn't work for some reason
@@ -21,6 +23,31 @@ function (req, res)
 		res.write('Current residential tax: ' + Game1.residential_tax + '\n');
 		res.write('Current industrial tax: ' + Game1.industrial_tax + '\n');
 		res.write('Current commercial tax: ' + Game1.commercial_tax + '\n');
+		res.write('<br>');
+		res.write('Land use map:');
+		res.write('<br>');
+		for (let i = 0; i < land_use.length; i++)
+		{
+			res.write(JSON.stringify(land_use[i]));
+			res.write('<br>');
+		}
+		res.write('<br>');
+		res.write('Pollution map:');
+		res.write('<br>');
+		
+		for (let i = 0; i < pollution.length; i++)
+		{
+			res.write(JSON.stringify(pollution[i]));
+			res.write('<br>');
+		}
+		res.write('<br>');
+		res.write('Life expectancy map:');
+		res.write('<br>');
+		for (let i = 0; i < life_expectancy.length; i++)
+		{
+			res.write(JSON.stringify(life_expectancy[i]));
+			res.write('<br>');
+		}
 		//res.send(`&lt;img src="./images/zone_residential.png" alt="Zone Residential"&gt;`);
 	 	res.end();
 	}
@@ -38,9 +65,19 @@ function (req, res)
         }*/
 });
 
-var land_use = [["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"]];
-var pollution = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]];
-var life_expectancy = [[70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0]];
+var land_use = new Uint8Array();
+var pollution = new Uint8Array();
+var life_expectancy = new Uint8Array();
+
+
+land_use = [["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"], ["h", "h", "h", "h", "h", "h", "h", "h"]];
+pollution = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]];
+life_expectancy = [[70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0], [70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0, 70.0]];
+
+//var buf1 = Buffer.alloc(7);
+//var buf2 = Buffer.alloc(7);
+//var buf3 = Buffer.alloc(7);
+
 
 //console.log('test message');
 
